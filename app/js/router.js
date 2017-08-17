@@ -1,8 +1,10 @@
-ContactManager.Router = Backbone.Router.extend({
+EmployeeManager.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
-    'contacts': 'showContacts',
-    'contacts/new': 'newContact',
-    'contacts/edit/:id': 'editContact'
+    'employees': 'showEmployees',
+    'employees/new': 'newEmployee',
+    'employees/edit/:id': 'editEmployee',
+    'login': 'login',
+    'callback': 'callback'
   }
 });

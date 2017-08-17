@@ -4,15 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contact Manager</title>
-    <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <title>Address Book</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="app/css/main.css" rel="stylesheet">
   </head>
   <body>
     <header class="bs-header">
       <div class="container">
-        <h1>Contact Manager</h1>
-        <p>Simple Backbone.js example application</p>
+        <h1>Address Book</h1>
       </div>
     </header>
     <div class="container">
@@ -23,23 +22,25 @@
     </div>
 
     <script type="text/template" id="tpl-contacts">
-      <h2 class="page-header text-center">List of contacts</h2>
+      <h2 class="page-header text-center">List of Employees</h2>
       <p class="text-center">
-        <a href="#contacts/new" class="btn btn-lg btn-outline">Add Contact</a>
+        <a href="#employees/new" class="btn btn-lg btn-outline">Add Employee</a>
       </p>
+
+      <div class="login-status"></div>
       <ul class="media-list row contacts-container"></ul>
     </script>
 
     <script type="text/template" id="tpl-contact">
       <div class="thumbnail">
-        <img class="media-object" src="app/img/faces/<%- avatar %>">
+        <img class="media-object" src="http://svgavatars.com/style/svg/<%- avatar %>">
       </div>
       <div class="media-heading">
         <h3>
           <%- name %>
           <small>
-            <a href="#contacts/edit/<%- id %>"><span class="glyphicon glyphicon-pencil"></span></a>
-            <a href="#contacts/delete/<%- id %>" class="delete-contract">
+            <a href="#employees/edit/<%- id %>"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a href="#employees/delete/<%- id %>" class="delete-employee">
               <span class="glyphicon glyphicon-trash"></span>
             </a>
           </small>
@@ -57,24 +58,24 @@
     </script>
 
     <script type="text/template" id="tpl-new-contact">
-      <h2 class="page-header text-center"><%= isNew ? 'Create' : 'Edit' %> Contact</h2>
-      <form role="form" class="form-horizontal contract-form">
+      <h2 class="page-header text-center"><%= isNew ? 'Create' : 'Edit' %> Employee </h2>
+      <form role="form" class="form-horizontal employee-form">
         <div class="form-group">
           <label class="col-sm-4 control-label">Full name:</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control contact-name-input" value="<%- name %>">
+            <input type="text" class="form-control employee-name-input" value="<%- name %>" required>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-4 control-label">Email address:</label>
           <div class="col-sm-6">
-            <input type="email" class="form-control contact-email-input" value="<%- email %>">
+            <input type="email" class="form-control employee-email-input" value="<%- email %>" required>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-4 control-label">Telephone number:</label>
           <div class="col-sm-6">
-            <input type="tel" class="form-control contact-tel-input" value="<%- tel %>">
+            <input type="tel" class="form-control employee-tel-input" value="<%- tel %>" required>
           </div>
         </div>
         <div class="form-group">
@@ -82,63 +83,72 @@
             <button type="submit" class="btn btn-outline btn-lg btn-block">Submit</button>
           </div>
           <div class="col-sm-3">
-            <a href="#contacts" class="btn btn-outline btn-lg btn-block">Cancel</a>
+            <a href="#employees" class="btn btn-outline btn-lg btn-block">Cancel</a>
           </div>
         </div>
       </form>
     </script>
 
-    <script src="vendor/jquery/jquery.js"></script>
-    <script src="vendor/underscore/underscore.js"></script>
-    <script src="vendor/backbone/backbone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0/8.8/auth0.min.js"></script>
 
     <script src="app/js/app.js"></script>
-    <script src="app/js/models/contact.js"></script>
-    <script src="app/js/collections/contacts.js"></script>
-    <script src="app/js/views/contact.js"></script>
-    <script src="app/js/views/contacts.js"></script>
-    <script src="app/js/views/contactForm.js"></script>
+    <script src="app/js/models/employee.js"></script>
+    <script src="app/js/collections/employees.js"></script>
+    <script src="app/js/views/employee.js"></script>
+    <script src="app/js/views/employees.js"></script>
+    <script src="app/js/views/employeeForm.js"></script>
     <script src="app/js/router.js"></script>
 
     <script>
       $(function() {
-        ContactManager.start({
-          contacts: [
+
+        EmployeeManager.auth();
+        EmployeeManager.start({
+          employees: [
             {
               id: 1,
-              name : 'Terrence S. Hatfield',
+              name : 'Christian Nwamba',
+              avatar: '11.svg',
               tel: '651-603-1723',
-              email: 'TerrenceSHatfield@rhyta.com'
+              email: 'chris@scotch.io'
             },
             {
               id: 2,
-              name : 'Chris M. Manning',
+              name : 'Bukola Ayodeji',
+              avatar: '20.svg',
               tel: '513-307-5859',
-              email: 'ChrisMManning@dayrep.com'
+              email: 'bukolayodeji@nairabet.com'
             },
             {
               id: 3,
-              name : 'Ricky M. Digiacomo',
+              name : 'Rick Ross',
+              avatar: '17.svg',
               tel: '918-774-0199',
-              email: 'RickyMDigiacomo@teleworm.us'
+              email: 'ross@auth0.com'
             },
             {
               id: 4,
-              name : 'Michael K. Bayne',
+              name : 'Godson Ukpere',
+              avatar: '19.svg',
               tel: '702-989-5145',
-              email: 'MichaelKBayne@rhyta.com'
+              email: 'g.ukpe@gigstar.co'
             },
             {
               id: 5,
               name : 'John I. Wilson',
+              avatar: '01.svg',
               tel: '318-292-6700',
               email: 'JohnIWilson@dayrep.com'
             },
             {
               id: 6,
-              name : 'Rodolfo P. Robinett',
+              name : 'Goodnes Tejufona',
+              avatar: '05.svg',
               tel: '803-557-9815',
-              email: 'RodolfoPRobinett@jourrapide.com'
+              email: 'goodness.teju@kudiai.com'
             }
           ]
         });

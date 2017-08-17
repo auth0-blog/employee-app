@@ -1,8 +1,8 @@
-ContactManager.Views.ContactForm = Backbone.View.extend({
+EmployeeManager.Views.EmployeeForm = Backbone.View.extend({
   template: _.template($('#tpl-new-contact').html()),
 
   events: {
-    'submit .contract-form': 'onFormSubmit'
+    'submit .employee-form': 'onFormSubmit'
   },
 
   render: function() {
@@ -17,9 +17,10 @@ ContactManager.Views.ContactForm = Backbone.View.extend({
     e.preventDefault();
 
     this.trigger('form:submitted', {
-      name: this.$('.contact-name-input').val(),
-      tel: this.$('.contact-tel-input').val(),
-      email: this.$('.contact-email-input').val()
+      name: this.$('.employee-name-input').val(),
+      tel: this.$('.employee-tel-input').val(),
+      email: this.$('.employee-email-input').val(),
+      avatar: '13.svg'
     });
   }
 });
