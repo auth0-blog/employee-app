@@ -2,7 +2,7 @@
   "strict": false,
   "unused": false,
   "globals": {
-    "ContactManager": false,
+    "EmployeeManager": false,
     "Backbone": false,
     "$": false,
     "_": false,
